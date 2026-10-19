@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: kara-yanchuan-memory
+    name: continuity-memory
     runtime: node
     plan: 0.5c-512mb
     buildCommand: npm ci --ignore-scripts
