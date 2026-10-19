@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: kara-yanchuan-memory
+    runtime: node
+    plan: 0.5c-512mb
+    buildCommand: npm ci --ignore-scripts
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeployTrigger: off
+    numInstances: 1
+    maxShutdownDelaySeconds: 30
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: MEMORY_DATA_DIR
+        value: /var/data
+      - key: MEMORY_ADMIN_TOKEN
+        generateValue: true
+    disk:
+      name: memory-data
+      mountPath: /var/data
+      sizeGB: 1
