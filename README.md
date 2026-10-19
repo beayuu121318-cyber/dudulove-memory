@@ -85,7 +85,7 @@ npm start
 4. 保存一条记忆，在「身份与连接」复制连接。
 5. 将连接填写到支持 MCP 或 HTTP API 的客户端。
 
-记忆保存在本机 `data/` 目录。需要跨设备访问时，按[部署说明](docs/operations.md)配置 HTTPS 地址。
+记忆保存在本机 `data/` 目录。需要跨设备访问时，按[部署说明](docs/operations.md)配置 HTTPS 地址。仓库附带的 `render.yaml` 提供带持久磁盘的 Render 部署蓝图；磁盘和对应计算实例属于付费资源，创建前请在 Render 确认当前价格。
 
 ## 模型服务是可选的
 
@@ -103,6 +103,7 @@ DuduLove 可以在完全不配置模型服务的情况下完成：
 
 - [日常管理、分类与授权](docs/usage.md)
 - [Resident 跨 Surface 接入指南](docs/surfaces.md)
+- [长期身份层与聊天档案的双层接入](docs/integration-profile.md)
 - [HTTP 与 MCP 接入](docs/connection.md)
 - [给接入 Agent 的操作说明](docs/agent-guide.md)
 - [客户端连接与身份选择接口](docs/client-api.md)
