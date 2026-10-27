@@ -1,5 +1,4 @@
 create schema if not exists memory;
-revoke all on schema memory from public, anon, authenticated;
 
 create table if not exists memory.memories (
   id text primary key,
@@ -66,5 +65,5 @@ create table if not exists memory.sequences (
   value bigint not null default 0
 );
 
-revoke all on all tables in schema memory from public, anon, authenticated;
-alter default privileges in schema memory revoke all on tables from public, anon, authenticated;
+revoke all on memory.memories, memory.settings, memory.chat_materials,
+  memory.audit_events, memory.kv, memory.sequences from public, anon, authenticated;

@@ -32,7 +32,7 @@ npm start
 - `MEMORY_SOURCE_ID`：固定的安装标识，首次部署后不要更换。
 - `MEMORY_DATA_DIR`：可指向临时目录；Postgres 模式下不再存放权威记录。
 
-数据库连接必须使用 TLS。不要把数据库密码、连接串或 Resident token 提交到仓库。`memory` schema 已撤销 Data API 常用角色权限，管理网页和 MCP 均通过服务端完成身份校验。
+数据库连接必须使用 TLS。不要把数据库密码、连接串或 Resident token 提交到仓库。DuduLove 新建的表已撤销 Data API 常用角色权限；同一 schema 中已有表及其策略不会被迁移修改。管理网页和 MCP 均通过服务端完成身份校验。
 
 Render 蓝图使用免费 Web Service 且不挂载磁盘。免费实例可能休眠，首次请求需要等待唤醒；这不影响 Supabase 中的持久数据。
 

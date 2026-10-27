@@ -247,7 +247,7 @@ Resident scope 在结果参与最终召回前受到服务端约束。语义服�
 - `embeddings.db`
 - 整理、聊天和简报进度等模块数据
 
-设置 `MEMORY_DATABASE_URL` 时，权威数据改存于私有 `memory` Postgres schema。该 schema 不通过 Supabase Data API 暴露，并撤销 `anon` 与 `authenticated` 权限；服务使用仅存在于服务端环境变量中的数据库连接访问。可重建的 embedding 缓存暂留于运行目录，未配置语义模型时不影响关键词召回。
+设置 `MEMORY_DATABASE_URL` 时，权威数据改存于 `memory` Postgres schema。DuduLove 自己的表不通过 Supabase Data API 暴露，并撤销 `anon` 与 `authenticated` 权限；服务使用仅存在于服务端环境变量中的数据库连接访问。同一 schema 中已有的聊天档案表与权限保持不变。可重建的 embedding 缓存暂留于运行目录，未配置语义模型时不影响关键词召回。
 
 备份应以整个数据目录为单位。身份口令、模型配置和历史记录都属于敏感数据。
 
