@@ -3,6 +3,7 @@ const path = require('node:path');
 const fs = require('node:fs');
 const Datastore = require('@seald-io/nedb');
 const stores = new Map();
+let externalFactory = null;
 
 function createOrganizationStore(filename) {
   if (filename) fs.mkdirSync(path.dirname(filename), { recursive: true });
@@ -31,8 +32,13 @@ function createOrganizationStore(filename) {
   return store;
 }
 function organizationStore() {
+  if (externalFactory) return externalFactory();
   const filename = path.join(process.env.MEMORY_DATA_DIR || path.resolve('data'), 'memory_organization.db');
   if (!stores.has(filename)) stores.set(filename, createOrganizationStore(filename));
   return stores.get(filename);
 }
-module.exports = { createOrganizationStore, organizationStore };
+function configureOrganizationStore(factory) {
+  if (externalFactory && externalFactory !== factory) throw new Error('Organization store is already configured');
+  externalFactory = factory;
+}
+module.exports = { createOrganizationStore, organizationStore, configureOrganizationStore };

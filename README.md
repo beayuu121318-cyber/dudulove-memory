@@ -85,7 +85,9 @@ npm start
 4. 保存一条记忆，在「身份与连接」复制连接。
 5. 将连接填写到支持 MCP 或 HTTP API 的客户端。
 
-记忆保存在本机 `data/` 目录。需要跨设备访问时，按[部署说明](docs/operations.md)配置 HTTPS 地址。仓库附带的 `render.yaml` 提供带持久磁盘的 Render 部署蓝图；磁盘和对应计算实例属于付费资源，创建前请在 Render 确认当前价格。
+默认情况下，记忆保存在本机 `data/` 目录。设置 `MEMORY_DATABASE_URL` 后，记忆、身份设置、聊天材料、审计记录和简报进度改存于 Postgres；本地目录只承担可重建的运行时缓存。需要跨设备访问时，按[部署说明](docs/operations.md)配置 HTTPS 地址。
+
+仓库附带的 `render.yaml` 使用免费 Web Service，并把持久数据放在外部 Supabase/Postgres。部署前先应用 `supabase/migrations/20261027000000_dudulove_memory.sql`，再在 Render 设置数据库连接密钥。
 
 ## 模型服务是可选的
 

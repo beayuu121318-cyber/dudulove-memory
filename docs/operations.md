@@ -23,6 +23,19 @@ npm start
 | `MEMORY_ADMIN_TOKEN` | 可选的管理口令，至少 16 字符，适合无交互部署。 |
 | `MEMORY_ALLOWED_ORIGINS` | 允许浏览器直接访问接口的其他站点来源，逗号分隔。 |
 
+### Supabase / Postgres 模式
+
+仓库根目录的 `supabase/migrations/20261027000000_dudulove_memory.sql` 建立私有 `memory` schema。先在目标数据库执行迁移，再为服务设置：
+
+- `MEMORY_DATABASE_URL`：长驻服务优先使用 Session Pooler 连接，只保存在部署平台的 secret 中。
+- `MEMORY_ADMIN_TOKEN`：至少 16 字符的管理口令。
+- `MEMORY_SOURCE_ID`：固定的安装标识，首次部署后不要更换。
+- `MEMORY_DATA_DIR`：可指向临时目录；Postgres 模式下不再存放权威记录。
+
+数据库连接必须使用 TLS。不要把数据库密码、连接串或 Resident token 提交到仓库。`memory` schema 已撤销 Data API 常用角色权限，管理网页和 MCP 均通过服务端完成身份校验。
+
+Render 蓝图使用免费 Web Service 且不挂载磁盘。免费实例可能休眠，首次请求需要等待唤醒；这不影响 Supabase 中的持久数据。
+
 先完成首次密码设置，再开放远程访问。服务器上用 Caddy、Nginx 等将 HTTPS 请求转发到本机端口；MCP 使用流式 HTTP，代理须允许长连接并关闭响应缓冲。示例域名为 `https://memory.example`。
 
 浏览器里的 `127.0.0.1` 指浏览器所在设备。手机与其他电脑使用服务的实际地址。原生 HTTP 与 MCP 客户端携带身份 Bearer 口令；浏览器跨站接入同时配置准确的来源。

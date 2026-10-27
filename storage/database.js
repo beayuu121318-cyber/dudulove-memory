@@ -1,3 +1,8 @@
+if (process.env.MEMORY_DATABASE_URL) {
+  module.exports = require('./postgres/database');
+  return;
+}
+
 const Datastore = require('@seald-io/nedb');
 const path = require('node:path');
 const embeddings = require('../memory-core/embeddings');

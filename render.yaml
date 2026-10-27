@@ -2,7 +2,7 @@ services:
   - type: web
     name: continuity-memory
     runtime: node
-    plan: 0.5c-512mb
+    plan: free
     buildCommand: npm ci --ignore-scripts
     startCommand: npm start
     healthCheckPath: /health
@@ -13,10 +13,10 @@ services:
       - key: HOST
         value: 0.0.0.0
       - key: MEMORY_DATA_DIR
-        value: /var/data
+        value: /tmp/dudulove-memory
+      - key: MEMORY_DATABASE_URL
+        sync: false
+      - key: MEMORY_SOURCE_ID
+        generateValue: true
       - key: MEMORY_ADMIN_TOKEN
         generateValue: true
-    disk:
-      name: memory-data
-      mountPath: /var/data
-      sizeGB: 1

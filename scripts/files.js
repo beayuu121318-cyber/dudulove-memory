@@ -3,7 +3,7 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const entries = ['.env.example','.gitignore','.gitattributes','AGENTS.md','render.yaml','LICENSE','README.md','THIRD_PARTY.md','CONTRIBUTING.md','SECURITY.md',
   'app.js','server.js','mcp-stdio.js','package.json','package-lock.json','memory-core','storage','services','routes',
-  'connectors','platform','public','docs','examples','scripts','tests','.github'];
+  'connectors','platform','public','docs','examples','scripts','tests','supabase','.github'];
 function files() {
   const result=[];
   function visit(name) {

@@ -45,7 +45,7 @@ Do not bulk-import handoff notes, full transcripts, credentials, OAuth tokens, d
 
 ## Deployment boundary
 
-The root `render.yaml` prepares infrastructure only. It imports no personal data. It declares a single paid web-service instance with a 1 GB persistent disk; confirm current pricing in Render before creating resources and back up the entire data directory regularly.
+The root `render.yaml` prepares infrastructure only. It imports no personal data. The Supabase profile declares a free web-service instance without a persistent disk; durable data remains in the private Postgres `memory` schema configured through `MEMORY_DATABASE_URL`.
 
 After deployment, verify in order:
 

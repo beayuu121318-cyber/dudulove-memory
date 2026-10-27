@@ -9,7 +9,7 @@ function initializeConfig() {
   const filename = path.join(dataDir, 'access.json');
   let value = fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename, 'utf8')) : null;
   if (!value) {
-    value = { sourceId: crypto.randomUUID(), adminToken: crypto.randomBytes(32).toString('base64url') };
+    value = { sourceId: process.env.MEMORY_SOURCE_ID || crypto.randomUUID(), adminToken: crypto.randomBytes(32).toString('base64url') };
     fs.writeFileSync(filename, JSON.stringify(value), { mode: 0o600, flag: 'wx' });
   }
   if (!value.sourceId || !value.adminToken) throw new Error('Invalid access configuration; original file preserved');
@@ -17,6 +17,7 @@ function initializeConfig() {
     if (process.env.MEMORY_ADMIN_TOKEN.length < 16) throw new Error('MEMORY_ADMIN_TOKEN must contain at least 16 characters');
     value.adminToken = process.env.MEMORY_ADMIN_TOKEN;
   }
+  if (process.env.MEMORY_SOURCE_ID) value.sourceId = process.env.MEMORY_SOURCE_ID;
   return { dataDir, value, save() {
     const tmp = filename + '.tmp';
     fs.writeFileSync(tmp, JSON.stringify(value), { mode: 0o600 });
