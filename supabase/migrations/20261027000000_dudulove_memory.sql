@@ -65,5 +65,12 @@ create table if not exists memory.sequences (
   value bigint not null default 0
 );
 
+alter table memory.memories enable row level security;
+alter table memory.settings enable row level security;
+alter table memory.chat_materials enable row level security;
+alter table memory.audit_events enable row level security;
+alter table memory.kv enable row level security;
+alter table memory.sequences enable row level security;
+
 revoke all on memory.memories, memory.settings, memory.chat_materials,
   memory.audit_events, memory.kv, memory.sequences from public, anon, authenticated;
