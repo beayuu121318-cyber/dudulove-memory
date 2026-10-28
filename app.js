@@ -21,7 +21,17 @@ function createApp(config) {
     }
     next();
   });
-  app.get('/health', (_req, res) => res.json({ ok: true, version: '0.1.0' }));
+  app.get('/health', async (_req, res) => {
+    const storage = process.env.MEMORY_DATABASE_URL ? 'postgres' : 'local';
+    if (storage === 'local') return res.json({ ok: true, version: '0.1.0', storage });
+    try {
+      const { sql } = require('./storage/postgres/client');
+      await sql`select 1`;
+      return res.json({ ok: true, version: '0.1.0', storage });
+    } catch {
+      return res.status(503).json({ ok: false, version: '0.1.0', storage });
+    }
+  });
   installLogin(app, config);
   const memoryDB = require('./storage/database'), chatsDB = require('./storage/chats');
   const auth = authentication(config, memoryDB);
